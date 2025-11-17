@@ -1,7 +1,6 @@
 //  simple signaling example using Socket.io 
-// Connect to the Socket.io server
-// By default, this connects to the same origin the page was served from
-const socket = io();
+// Connect to the Socket.io server on Render
+const socket = io("https://project-4-lilyvosari.onrender.com");
 
 //browser to browser chat example
 const chat = document.getElementById("chat");
