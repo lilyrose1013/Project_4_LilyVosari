@@ -69,18 +69,19 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: 13.5%;
-  height: 23%;
   background: transparent;
   border: none;
   box-shadow: none;
 }
 
 .top-screen {
-  top: 16.5%;
+  top: 14%;
+  height: 20%;
 }
 
 .bottom-screen {
   top: 64%;
+  height: 26%;
 }
 
 .screen-content {
