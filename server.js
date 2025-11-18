@@ -16,7 +16,8 @@ const io = new Server(server, {
   cors: {
     origin: ["https://lilyrose1013.github.io", "http://localhost:3000"],
     methods: ["GET", "POST"]
-  }
+  },
+  maxHttpBufferSize: 1e8 // Increase max buffer size to 100MB for image uploads
 });
 
 io.on("connection", (socket) => {
@@ -24,6 +25,7 @@ io.on("connection", (socket) => {
 
   // Handle chat signals
   socket.on("signal", (data) => {
+    console.log(`Signal received from ${socket.id}:`, data.type);
     socket.broadcast.emit("signal", data);
   });
 
