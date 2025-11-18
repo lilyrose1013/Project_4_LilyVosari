@@ -89,7 +89,7 @@ function handleImageFile(file) {
 sendImageBtn.onclick = () => {
     if (selectedImage) {
         socket.emit("signal", { type: "image", data: selectedImage });
-        addImageMessage(selectedImage, true);
+        addSentImage(selectedImage);
         
         // Reset
         selectedImage = null;
@@ -102,26 +102,37 @@ sendImageBtn.onclick = () => {
 sendImageBtn.disabled = true;
 
 //browser to browser chat example
-const chat = document.getElementById("chat");
+const receivedChat = document.getElementById("receivedChat");
+const sentChat = document.getElementById("sentChat");
 const input = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
 
-// Display message helper
-function addMessage(text, isOwn = false) {
+// Display message helper - received messages go to top screen
+function addReceivedMessage(text) {
     const msg = document.createElement("div");
-    msg.textContent = (isOwn ? "🧑‍💻 You: " : "👩‍🚀 Peer: ") + text;
-    msg.style.textAlign = isOwn ? "right" : "left";
-    chat.appendChild(msg);
-    chat.scrollTop = chat.scrollHeight;
+    msg.className = "message";
+    msg.innerHTML = `<span class="message-label">👩‍🚀 Peer:</span><span class="message-text">${text}</span>`;
+    receivedChat.appendChild(msg);
+    receivedChat.scrollTop = receivedChat.scrollHeight;
 }
 
-// Display image helper
-function addImageMessage(imageData, isOwn = false) {
+// Display sent messages - go to bottom screen
+function addSentMessage(text) {
     const msg = document.createElement("div");
-    msg.style.textAlign = isOwn ? "right" : "left";
+    msg.className = "message";
+    msg.innerHTML = `<span class="message-label">🧑‍💻 You:</span><span class="message-text">${text}</span>`;
+    sentChat.appendChild(msg);
+    sentChat.scrollTop = sentChat.scrollHeight;
+}
+
+// Display image helper - received images
+function addReceivedImage(imageData) {
+    const msg = document.createElement("div");
+    msg.className = "message";
     
     const label = document.createElement("div");
-    label.textContent = isOwn ? "🧑‍💻 You:" : "👩‍🚀 Peer:";
+    label.className = "message-label";
+    label.textContent = "👩‍🚀 Peer:";
     
     const img = document.createElement("img");
     img.src = imageData;
@@ -130,8 +141,28 @@ function addImageMessage(imageData, isOwn = false) {
     
     msg.appendChild(label);
     msg.appendChild(img);
-    chat.appendChild(msg);
-    chat.scrollTop = chat.scrollHeight;
+    receivedChat.appendChild(msg);
+    receivedChat.scrollTop = receivedChat.scrollHeight;
+}
+
+// Display sent images
+function addSentImage(imageData) {
+    const msg = document.createElement("div");
+    msg.className = "message";
+    
+    const label = document.createElement("div");
+    label.className = "message-label";
+    label.textContent = "🧑‍💻 You:";
+    
+    const img = document.createElement("img");
+    img.src = imageData;
+    img.className = "chat-image";
+    img.onclick = () => window.open(imageData, "_blank");
+    
+    msg.appendChild(label);
+    msg.appendChild(img);
+    sentChat.appendChild(msg);
+    sentChat.scrollTop = sentChat.scrollHeight;
 }
 
 // When clicking "Send", emit the message
@@ -139,15 +170,15 @@ sendBtn.onclick = () => {
     const message = input.value.trim();
     if (!message) return;
     socket.emit("signal", { type: "chat", text: message });
-    addMessage(message, true);
+    addSentMessage(message);
     input.value = "";
 };
 
 // When a "signal" is received, check its type
 socket.on("signal", (data) => {
     if (data.type === "chat") {
-        addMessage(data.text);
+        addReceivedMessage(data.text);
     } else if (data.type === "image") {
-        addImageMessage(data.data);
+        addReceivedImage(data.data);
     }
 });
