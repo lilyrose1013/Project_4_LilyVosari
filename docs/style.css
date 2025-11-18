@@ -50,7 +50,7 @@ body {
   height: 100vh;
   background-image: url('DS_template.jpg');
   background-size: 35%;
-  background-position: center left 20%;
+  background-position: center;
   background-repeat: no-repeat;
   background-color: #ffb3d9;
   position: relative;
@@ -68,19 +68,19 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 45%;
-  height: 24%;
-  background: black;
+  width: 13.5%;
+  height: 7.5%;
+  background: transparent;
   border: none;
   box-shadow: none;
 }
 
 .top-screen {
-  top: 10%;
+  top: 16.5%;
 }
 
 .bottom-screen {
-  top: 60%;
+  top: 64%;
 }
 
 .screen-content {
@@ -92,6 +92,7 @@ body {
   color: #00ff00;
   font-family: 'Courier New', monospace;
   font-size: 14px;
+  background: transparent;
 }
 
 .screen-content::-webkit-scrollbar {
@@ -109,9 +110,9 @@ body {
 
 .controls {
   position: absolute;
-  top: 50%;
-  right: 10%;
-  transform: translateY(-50%);
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 35%;
   max-width: 400px;
   background: rgba(0, 0, 0, 0.7);
@@ -265,14 +266,17 @@ body {
 .message {
   margin-bottom: 10px;
   line-height: 1.5;
+  background: transparent;
 }
 
 .message-label {
   font-weight: bold;
   color: #00ff00;
+  background: transparent;
 }
 
 .message-text {
-  color: #33ff33;
+  color: #00ff00;
   margin-left: 10px;
+  background: transparent;
 }
