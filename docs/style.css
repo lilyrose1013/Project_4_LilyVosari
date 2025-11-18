@@ -150,7 +150,7 @@ body {
   display: none;
   position: fixed;
   top: 50%;
-  left: 15%;
+  left: 5%;
   transform: translateY(-50%);
   width: 90%;
   max-width: 400px;
