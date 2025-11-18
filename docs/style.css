@@ -68,19 +68,19 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 52%;
-  height: 27%;
+  width: 45%;
+  height: 24%;
   background: black;
   border: none;
   box-shadow: none;
 }
 
 .top-screen {
-  top: 8%;
+  top: 10%;
 }
 
 .bottom-screen {
-  top: 57%;
+  top: 60%;
 }
 
 .screen-content {
