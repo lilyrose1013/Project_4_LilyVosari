@@ -76,8 +76,8 @@ body {
 #chat {
   border: 1px solid #ccc;
   padding: 10px;
-  height: 300px;
-  width: 400px;
+  height: 500px;
+  width: 600px;
   overflow-y: auto;
   background: #f9f9f9;
   border-radius: 8px;
@@ -86,7 +86,7 @@ body {
 
 #messageInput {
   padding: 10px;
-  width: 300px;
+  width: 500px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1em;
