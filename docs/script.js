@@ -2,6 +2,16 @@
 // Connect to the Socket.io server on Render
 const socket = io("https://project-4-lilyvosari.onrender.com");
 
+// Start page navigation
+const startPage = document.getElementById("startPage");
+const chatPage = document.getElementById("chatPage");
+const startBtnMain = document.getElementById("startBtn");
+
+startBtnMain.onclick = () => {
+    startPage.style.display = "none";
+    chatPage.style.display = "block";
+};
+
 //browser to browser chat example
 const chat = document.getElementById("chat");
 const input = document.getElementById("messageInput");

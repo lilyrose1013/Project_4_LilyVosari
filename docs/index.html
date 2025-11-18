@@ -4,17 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Browser-to-Browser Chat</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>🛰️ Simple Browser-to-Browser Chat</h2>
+  <!-- Start Page -->
+  <div id="startPage">
+    <h1>🛰️ Browser-to-Browser Chat</h1>
+    <p>Connect and chat with peers in real-time</p>
+    <button id="startBtn">Start Chatting</button>
+  </div>
 
-  <!-- Message display area -->
-  <div id="chat" style="border:1px solid #ccc; padding:10px; height:200px; width:300px; overflow-y:auto;"></div>
-  <br>
+  <!-- Chat Page (hidden initially) -->
+  <div id="chatPage">
+    <h2>🛰️ Simple Browser-to-Browser Chat</h2>
 
-  <!-- Message input and send button -->
-  <input id="messageInput" placeholder="Type your message..." />
-  <button id="sendBtn">Send</button>
+    <!-- Message display area -->
+    <div id="chat"></div>
+
+    <!-- Message input and send button -->
+    <input id="messageInput" placeholder="Type your message..." />
+    <button id="sendBtn">Send</button>
+  </div>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="./script.js"></script>
