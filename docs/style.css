@@ -118,8 +118,19 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.button-column {
+  display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+}
+
+.input-area {
+  flex: 1;
+  display: flex;
 }
 
 .control-row {
@@ -150,11 +161,6 @@ body {
 
 #backBtn {
   padding: 6px 15px;
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
 }
 
 .tab-button {
