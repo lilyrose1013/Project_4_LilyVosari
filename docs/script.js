@@ -18,6 +18,26 @@ backBtn.onclick = () => {
     startPage.style.display = "block";
 };
 
+// Popup menu toggle
+const menuToggle = document.getElementById("menuToggle");
+const controlsPopup = document.getElementById("controlsPopup");
+const closePopup = document.getElementById("closePopup");
+
+menuToggle.onclick = () => {
+    controlsPopup.classList.add("active");
+};
+
+closePopup.onclick = () => {
+    controlsPopup.classList.remove("active");
+};
+
+// Close popup when clicking outside
+controlsPopup.onclick = (e) => {
+    if (e.target === controlsPopup) {
+        controlsPopup.classList.remove("active");
+    }
+};
+
 // Tab switching
 const tabButtons = document.querySelectorAll(".tab-button");
 const tabContents = document.querySelectorAll(".tab-content");

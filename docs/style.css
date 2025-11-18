@@ -124,6 +124,89 @@ body {
   align-items: center;
 }
 
+.menu-toggle {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(145deg, #ffcce6, #ff99cc);
+  color: #660033;
+  border: 2px solid #d4a5c7;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 1000;
+  transition: all 0.2s;
+}
+
+.menu-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.controls-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 500px;
+  background: rgba(255, 179, 217, 0.98);
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  z-index: 999;
+  padding: 20px;
+}
+
+.controls-popup.active {
+  display: block;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff99cc;
+  padding-bottom: 10px;
+}
+
+.popup-header h3 {
+  margin: 0;
+  color: #660033;
+  font-size: 1.5em;
+}
+
+.close-btn {
+  background: linear-gradient(145deg, #ff99cc, #ff66b3);
+  color: white;
+  border: none;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.3em;
+  font-weight: bold;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  transform: rotate(90deg);
+  background: linear-gradient(145deg, #ff66b3, #ff3399);
+}
+
+.popup-content {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
 .button-column {
   display: flex;
   flex-direction: column;
