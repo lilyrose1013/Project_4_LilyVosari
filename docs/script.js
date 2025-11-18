@@ -6,10 +6,16 @@ const socket = io("https://project-4-lilyvosari.onrender.com");
 const startPage = document.getElementById("startPage");
 const chatPage = document.getElementById("chatPage");
 const startBtnMain = document.getElementById("startBtn");
+const backBtn = document.getElementById("backBtn");
 
 startBtnMain.onclick = () => {
     startPage.style.display = "none";
     chatPage.style.display = "block";
+};
+
+backBtn.onclick = () => {
+    chatPage.style.display = "none";
+    startPage.style.display = "block";
 };
 
 //browser to browser chat example
