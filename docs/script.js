@@ -121,7 +121,7 @@ sendImageBtn.onclick = () => {
         
         // Reset
         selectedImage = null;
-        dropZone.innerHTML = '<p>📤 Drag & drop an image here or click to browse</p>';
+        dropZone.innerHTML = '<p>Drag & drop an image here or click to browse</p>';
         imageInput.value = "";
         sendImageBtn.disabled = true;
     }

@@ -12,7 +12,7 @@
 <body>
   <!-- Start Page -->
   <div id="startPage">
-    <h1>🛰️ Browser-to-Browser Chat</h1>
+    <h1>Browser-to-Browser Chat</h1>
     <p>Connect and chat with peers in real-time</p>
     <input type="text" id="usernameInput" placeholder="Enter your username..." maxlength="20" style="padding: 10px 20px; font-size: 1em; border: 2px solid #ff66b3; border-radius: 25px; margin-bottom: 20px; width: 250px; text-align: center;">
     <button id="startBtn">Start Chatting</button>
@@ -32,7 +32,7 @@
       </div>
       
       <!-- Floating Menu Button -->
-      <button id="menuToggle" class="menu-toggle">⚙️ Menu</button>
+      <button id="menuToggle" class="menu-toggle">Menu</button>
       
       <!-- Controls Popup -->
       <div id="controlsPopup" class="controls-popup">
@@ -43,9 +43,9 @@
         <div class="popup-content">
           <div class="button-column">
             <button id="backBtn" class="ds-button">← Back</button>
-            <button class="tab-button active" data-tab="text">💬 Text</button>
-            <button class="tab-button" data-tab="image">🖼️ Image</button>
-            <button class="tab-button" data-tab="draw">✏️ Draw</button>
+            <button class="tab-button active" data-tab="text">Text</button>
+            <button class="tab-button" data-tab="image">Image</button>
+            <button class="tab-button" data-tab="draw">Draw</button>
           </div>
           
           <div class="input-area">
@@ -58,7 +58,7 @@
             <!-- Image Tab Content -->
             <div id="imageTab" class="tab-content">
               <div id="dropZone">
-                <p>📤 Drag & drop image or click</p>
+                <p>Drag & drop image or click</p>
                 <input type="file" id="imageInput" accept="image/*">
               </div>
               <button id="sendImageBtn" class="ds-button">Send Image</button>
@@ -68,11 +68,11 @@
             <div id="drawTab" class="tab-content">
               <canvas id="drawCanvas" width="1200" height="800"></canvas>
               <div style="display: flex; gap: 8px; margin-top: 10px;">
-                <button id="clearCanvas" class="ds-button">🗑️ Clear</button>
+                <button id="clearCanvas" class="ds-button">Clear</button>
                 <input type="color" id="colorPicker" value="#00ff00" style="width: 50px; height: 30px; border: 2px solid #d4a5c7; border-radius: 8px;">
                 <input type="range" id="brushSize" min="1" max="20" value="3" style="flex: 1;">
               </div>
-              <button id="sendDrawing" class="ds-button" style="width: 100%; margin-top: 10px;">📤 Send Drawing</button>
+              <button id="sendDrawing" class="ds-button" style="width: 100%; margin-top: 10px;">Send Drawing</button>
             </div>
           </div>
         </div>
