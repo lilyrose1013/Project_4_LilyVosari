@@ -20,7 +20,7 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #ff99cc 0%, #ff66b3 100%);
   overflow: hidden;
 }
 
@@ -43,7 +43,7 @@ body {
 
 #startBtn {
   background-color: white;
-  color: #667eea;
+  color: #ff66b3;
   border: none;
   padding: 15px 40px;
   font-size: 1.2em;
