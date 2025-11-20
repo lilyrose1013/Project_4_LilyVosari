@@ -343,6 +343,21 @@ if (canvas) {
     socket.emit("clear");
   });
   
+  // Send drawing as image
+  const sendDrawingBtn = document.getElementById("sendDrawing");
+  sendDrawingBtn.addEventListener("click", () => {
+    // Convert canvas to data URL (image)
+    const imageData = canvas.toDataURL("image/png");
+    
+    // Send via signal event (like other images)
+    socket.emit("signal", { type: "image", data: imageData });
+    addSentImage(imageData);
+    
+    // Optionally clear the canvas after sending
+    // ctx.fillStyle = "#1a1a1a";
+    // ctx.fillRect(0, 0, canvas.width, canvas.height);
+  });
+  
   // Listen for drawing from other users
   socket.on("draw", (data) => {
     drawLine(data);
