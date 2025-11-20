@@ -2,13 +2,21 @@
 // Connect to the Socket.io server on Render
 const socket = io("https://project-4-lilyvosari.onrender.com");
 
+// Username storage
+let username = "Guest";
+
 // Start page navigation
 const startPage = document.getElementById("startPage");
 const chatPage = document.getElementById("chatPage");
 const startBtnMain = document.getElementById("startBtn");
 const backBtn = document.getElementById("backBtn");
+const usernameInput = document.getElementById("usernameInput");
 
 startBtnMain.onclick = () => {
+    const enteredName = usernameInput.value.trim();
+    if (enteredName) {
+        username = enteredName;
+    }
     startPage.style.display = "none";
     chatPage.style.display = "block";
 };
@@ -108,7 +116,7 @@ function handleImageFile(file) {
 // Send image
 sendImageBtn.onclick = () => {
     if (selectedImage) {
-        socket.emit("signal", { type: "image", data: selectedImage });
+        socket.emit("signal", { type: "image", data: selectedImage, username: username });
         addSentImage(selectedImage);
         
         // Reset
@@ -128,10 +136,10 @@ const input = document.getElementById("messageInput");
 const sendBtn = document.getElementById("sendBtn");
 
 // Display message helper - received messages go to top screen
-function addReceivedMessage(text) {
+function addReceivedMessage(text, sender = "Peer") {
     const msg = document.createElement("div");
     msg.className = "message";
-    msg.innerHTML = `<span class="message-label">👩‍🚀 Peer:</span><span class="message-text">${text}</span>`;
+    msg.innerHTML = `<span class="message-label">👩‍🚀 ${sender}:</span><span class="message-text">${text}</span>`;
     receivedChat.appendChild(msg);
     receivedChat.scrollTop = receivedChat.scrollHeight;
 }
@@ -140,19 +148,19 @@ function addReceivedMessage(text) {
 function addSentMessage(text) {
     const msg = document.createElement("div");
     msg.className = "message";
-    msg.innerHTML = `<span class="message-label">🧑‍💻 You:</span><span class="message-text">${text}</span>`;
+    msg.innerHTML = `<span class="message-label">🧑‍💻 ${username}:</span><span class="message-text">${text}</span>`;
     sentChat.appendChild(msg);
     sentChat.scrollTop = sentChat.scrollHeight;
 }
 
 // Display image helper - received images
-function addReceivedImage(imageData) {
+function addReceivedImage(imageData, sender = "Peer") {
     const msg = document.createElement("div");
     msg.className = "message";
     
     const label = document.createElement("div");
     label.className = "message-label";
-    label.textContent = "👩‍🚀 Peer:";
+    label.textContent = `👩‍🚀 ${sender}:`;
     
     const img = document.createElement("img");
     img.src = imageData;
@@ -172,7 +180,7 @@ function addSentImage(imageData) {
     
     const label = document.createElement("div");
     label.className = "message-label";
-    label.textContent = "🧑‍💻 You:";
+    label.textContent = `🧑‍💻 ${username}:`;
     
     const img = document.createElement("img");
     img.src = imageData;
@@ -189,7 +197,7 @@ function addSentImage(imageData) {
 sendBtn.onclick = () => {
     const message = input.value.trim();
     if (!message) return;
-    socket.emit("signal", { type: "chat", text: message });
+    socket.emit("signal", { type: "chat", text: message, username: username });
     addSentMessage(message);
     input.value = "";
 };
@@ -197,9 +205,9 @@ sendBtn.onclick = () => {
 // When a "signal" is received, check its type
 socket.on("signal", (data) => {
     if (data.type === "chat") {
-        addReceivedMessage(data.text);
+        addReceivedMessage(data.text, data.username || "Peer");
     } else if (data.type === "image") {
-        addReceivedImage(data.data);
+        addReceivedImage(data.data, data.username || "Peer");
     }
 });
 
@@ -350,7 +358,7 @@ if (canvas) {
     const imageData = canvas.toDataURL("image/png");
     
     // Send via signal event (like other images)
-    socket.emit("signal", { type: "image", data: imageData });
+    socket.emit("signal", { type: "image", data: imageData, username: username });
     addSentImage(imageData);
     
     // Optionally clear the canvas after sending
