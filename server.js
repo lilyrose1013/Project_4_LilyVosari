@@ -21,7 +21,7 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connected: " + socket.id);
+  console.log("🟢 New user connected:", socket.id);
 
   // Handle chat signals
   socket.on("signal", (data) => {
@@ -29,11 +29,25 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("signal", data);
   });
 
+  socket.on("draw", (data) => {
+    // rebroadcast to everyone except the sender
+    socket.broadcast.emit("draw", data);
+  });
+
+  socket.on("clear", () => {
+    // rebroadcast clear event to all other clients
+    socket.broadcast.emit("clear");
+  });
+
+  socket.on("image", (imageData) => {
+    // rebroadcast image to all other clients
+    console.log("📷 User sent image:", socket.id);
+    socket.broadcast.emit("image", imageData);
+  });
+
   socket.on("disconnect", () => {
-    console.log("User disconnected: " + socket.id);
+    console.log("🔴 User disconnected:", socket.id);
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
