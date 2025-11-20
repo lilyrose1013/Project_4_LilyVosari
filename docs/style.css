@@ -369,3 +369,17 @@ body {
   margin-left: 10px;
   background: transparent;
 }
+
+/* Canvas styling */
+#drawCanvas {
+  width: 100%;
+  border: 2px solid #d4a5c7;
+  border-radius: 8px;
+  background: #1a1a1a;
+  cursor: crosshair;
+  display: block;
+}
+
+#drawTab {
+  width: 100%;
+}

@@ -202,3 +202,155 @@ socket.on("signal", (data) => {
         addReceivedImage(data.data);
     }
 });
+
+// Alternative image sending using canvas (if you want to add drawing features later)
+const sendImageBtnAlt = document.getElementById("sendImageAlt");
+if (sendImageBtnAlt) {
+  const imageInputAlt = document.getElementById("imageInputAlt");
+
+  sendImageBtnAlt.addEventListener("click", () => {
+    imageInputAlt.click();
+  });
+
+  imageInputAlt.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imageData = event.target.result;
+      
+      // Send image to other users via dedicated image event
+      if (socket && socket.connected) {
+        socket.emit("image", imageData);
+      }
+      
+      // Also display locally
+      addSentImage(imageData);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// Listen for images from other users via dedicated image event
+socket.on("image", (imageData) => {
+  addReceivedImage(imageData);
+});
+
+// Canvas Drawing Functionality
+const canvas = document.getElementById("drawCanvas");
+if (canvas) {
+  const ctx = canvas.getContext("2d");
+  const colorPicker = document.getElementById("colorPicker");
+  const brushSize = document.getElementById("brushSize");
+  const clearCanvas = document.getElementById("clearCanvas");
+  
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  
+  // Set canvas background
+  ctx.fillStyle = "#1a1a1a";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // Drawing functions
+  function startDrawing(e) {
+    isDrawing = true;
+    const rect = canvas.getBoundingClientRect();
+    lastX = e.clientX - rect.left;
+    lastY = e.clientY - rect.top;
+  }
+  
+  function draw(e) {
+    if (!isDrawing) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const drawData = {
+      lastX,
+      lastY,
+      x,
+      y,
+      color: colorPicker.value,
+      size: brushSize.value
+    };
+    
+    // Draw locally
+    drawLine(drawData);
+    
+    // Send to other users
+    socket.emit("draw", drawData);
+    
+    lastX = x;
+    lastY = y;
+  }
+  
+  function stopDrawing() {
+    isDrawing = false;
+  }
+  
+  function drawLine(data) {
+    ctx.strokeStyle = data.color;
+    ctx.lineWidth = data.size;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    
+    ctx.beginPath();
+    ctx.moveTo(data.lastX, data.lastY);
+    ctx.lineTo(data.x, data.y);
+    ctx.stroke();
+  }
+  
+  // Event listeners
+  canvas.addEventListener("mousedown", startDrawing);
+  canvas.addEventListener("mousemove", draw);
+  canvas.addEventListener("mouseup", stopDrawing);
+  canvas.addEventListener("mouseout", stopDrawing);
+  
+  // Touch support for mobile
+  canvas.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const mouseEvent = new MouseEvent("mousedown", {
+      clientX: touch.clientX,
+      clientY: touch.clientY
+    });
+    canvas.dispatchEvent(mouseEvent);
+  });
+  
+  canvas.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const mouseEvent = new MouseEvent("mousemove", {
+      clientX: touch.clientX,
+      clientY: touch.clientY
+    });
+    canvas.dispatchEvent(mouseEvent);
+  });
+  
+  canvas.addEventListener("touchend", (e) => {
+    e.preventDefault();
+    const mouseEvent = new MouseEvent("mouseup", {});
+    canvas.dispatchEvent(mouseEvent);
+  });
+  
+  // Clear canvas
+  clearCanvas.addEventListener("click", () => {
+    ctx.fillStyle = "#1a1a1a";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    socket.emit("clear");
+  });
+  
+  // Listen for drawing from other users
+  socket.on("draw", (data) => {
+    drawLine(data);
+  });
+  
+  // Listen for clear from other users
+  socket.on("clear", () => {
+    ctx.fillStyle = "#1a1a1a";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  });
+}

@@ -41,6 +41,7 @@
             <button id="backBtn" class="ds-button">← Back</button>
             <button class="tab-button active" data-tab="text">💬 Text</button>
             <button class="tab-button" data-tab="image">🖼️ Image</button>
+            <button class="tab-button" data-tab="draw">✏️ Draw</button>
           </div>
           
           <div class="input-area">
@@ -57,6 +58,16 @@
                 <input type="file" id="imageInput" accept="image/*">
               </div>
               <button id="sendImageBtn" class="ds-button">Send Image</button>
+            </div>
+
+            <!-- Draw Tab Content -->
+            <div id="drawTab" class="tab-content">
+              <canvas id="drawCanvas" width="400" height="300"></canvas>
+              <div style="display: flex; gap: 8px; margin-top: 10px;">
+                <button id="clearCanvas" class="ds-button">🗑️ Clear</button>
+                <input type="color" id="colorPicker" value="#00ff00" style="width: 50px; height: 30px; border: 2px solid #d4a5c7; border-radius: 8px;">
+                <input type="range" id="brushSize" min="1" max="20" value="3" style="flex: 1;">
+              </div>
             </div>
           </div>
         </div>
